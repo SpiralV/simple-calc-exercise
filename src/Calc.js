@@ -13,10 +13,37 @@ export default class Calc extends Component {
       [num]: e.target.value
     })
   }
-  sum = (num1, num2) => {
-    this.setState({
-        total: Number(num1) + Number(num2)
+  calculate = (num1, num2) => {
+      let int1 = Number(num1)
+      let int2 = Number(num2)
+      let intTot = 0
+
+      switch (this.state.operator){
+          case '+':
+            intTot = int1 + int2
+            break
+          case '-':
+            intTot = int1 - int2
+            break
+          case '*':
+            intTot = int1 * int2
+            break
+          case '/':
+            intTot = int1 / int2
+            break
+            default:
+            break
+
+      }
+        this.setState({
+            total: intTot
     })
+  }
+
+  setOp = (e) => {
+      this.setState({
+          operator: e.target.value
+      })
   }
   render() {
     return (
@@ -37,8 +64,12 @@ export default class Calc extends Component {
         value={this.state.num2} 
         onChange={ (e) => this.setNum(e, 'num2')}
         />
-    <button onClick={ () => this.sum(this.state.num1, this.state.num2)}>=</button>
+    <button onClick={ () => this.calculate(this.state.num1, this.state.num2)}>=</button>
     <h3>{this.state.total}</h3>
+    <button name="plus" value="+" onClick={ (e) => this.setOp(e)}>+</button>
+    <button name="minus" value="-" onClick={ (e) => this.setOp(e)}>-</button>
+    <button name="multiply" value="*" onClick={ (e) => this.setOp(e)}>*</button>
+    <button name="divide" value="/" onClick={ (e) => this.setOp(e)}>/</button>
   </div>
 </div>
     )}
